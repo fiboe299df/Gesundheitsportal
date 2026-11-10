@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schön Klinik MVZ Rendsburg | Patientenaufnahme</title>
+  <style>
+    :root {
+      --navy: #18395e;
+      --navy-deep: #0f2850;
+      --orange: #f28a13;
+      --orange-soft: #ffb84d;
+      --red: #d8272f;
+      --white: #ffffff;
+      --ink: #22324a;
+      --muted: #64748b;
+      --bg: #f4f8fb;
+      --line: #dfe7ef;
+      --soft: #edf4fa;
+      --shadow: 0 12px 28px rgba(24,57,94,.10);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font: inherit; }
+
+    .wrap {
+      width: min(1080px, calc(100% - 30px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      height: 8px;
+      background: linear-gradient(90deg, var(--orange) 0 35%, var(--navy) 35% 100%);
+    }
+
+    header {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 18px 0;
+    }
+
+    .logo-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .logo-wrap {
+      width: min(760px, 90vw);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .logo-wrap svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .top-controls {
+      width: min(1080px, calc(100% - 30px));
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 12px;
+    }
+
+    .lang-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      border-radius: 12px;
+      color: white;
+      backdrop-filter: blur(2px);
+    }
+
+    .lang-box label {
+      color: rgba(255,255,255,.9);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .flag {
+      display: inline-flex;
+      width: 32px;
+      height: 22px;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 4px;
+      overflow: hidden;
+      background: #fff;
+      flex: 0 0 32px;
+    }
+
+    .flag svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    select {
+      min-width: 165px;
+      padding: 10px 35px 10px 12px;
+      background:
+        linear-gradient(45deg, transparent 50%, #fff 50%),
+        linear-gradient(135deg, #fff 50%, transparent 50%),
+        rgba(255,255,255,.08);
+      background-position:
+        calc(100% - 16px) calc(50% + 1px),
+        calc(100% - 11px) calc(50% + 1px),
+        0 0;
+      background-size: 5px 5px, 5px 5px, 100% 100%;
+      background-repeat: no-repeat;
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 8px;
+      color: #fff;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+
+    select option {
+      color: #1f2d3d;
+      background: #fff;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1d4d76 100%);
+      color: #fff;
+      padding: 38px 0 42px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(255,255,255,.08), transparent 25%),
+        radial-gradient(circle at 15% 80%, rgba(242,138,19,.18), transparent 25%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: #f8d39c;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      font-weight: 800;
+      max-width: 700px;
+    }
+
+    .lead {
+      margin: 18px 0 0;
+      color: #edf4fb;
+      font-size: 18px;
+      max-width: 650px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 14px 26px;
+      border-radius: 12px;
+      border: 0;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #1a2d47;
+      box-shadow: 0 10px 20px rgba(242,138,19,.25);
+    }
+
+    .btn-primary:hover { background: var(--orange-soft); }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff;
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 20px;
+      padding: 22px;
+      backdrop-filter: blur(2px);
+      box-shadow: var(--shadow);
+    }
+
+    .mini-icon {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      margin-bottom: 18px;
+      color: #fff;
+    }
+
+    .mini-icon svg {
+      width: 28px;
+      height: 28px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hero-card h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .hero-card ul {
+      margin: 12px 0 0 18px;
+      padding: 0;
+      color: #edf4fb;
+    }
+
+    .hero-card li { margin: 6px 0; }
+
+    main {
+      padding: 30px 0 60px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .info-card {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px 18px;
+      box-shadow: 0 8px 18px rgba(15,40,80,.04);
+    }
+
+    .info-card h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 18px;
+    }
+
+    .info-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      margin-top: 18px;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 22px rgba(15,40,80,.04);
+      overflow: hidden;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 22px;
+      background: var(--soft);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head .mini-box {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid var(--navy);
+      display: grid;
+      place-items: center;
+      color: var(--navy);
+      background: #fff;
+      flex: 0 0 auto;
+    }
+
+    .section-head .mini-box svg {
+      width: 22px; height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: 22px;
+      letter-spacing: -.03em;
+    }
+
+    .section-body {
+      padding: 22px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .practice-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .practice-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      background: var(--orange);
+      border-radius: 50%;
+      margin-top: 7px;
+      flex: 0 0 auto;
+    }
+
+    .hours {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+
+    .hours td {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .hours td:first-child {
+      width: 120px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+
+    .notice-box {
+      background: var(--soft);
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--orange);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-top: 20px;
+    }
+
+    .notice-box strong {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--navy);
+    }
+
+    .notice-box p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    form {
+      margin-top: 8px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px 20px;
+    }
+
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .required { color: #b42318; }
+
+    input[type=text], input[type=email], input[type=tel], input[type=date], textarea, select {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid #bfd0de;
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px 12px;
+      color: var(--ink);
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 18px;
+      margin-top: 6px;
+    }
+
+    .choice {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .choice input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--navy);
+    }
+
+    .hint {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .consent {
+      margin-top: 10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--soft);
+    }
+
+    .consent input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--navy);
+    }
+
+    .consent label {
+      margin: 0;
+      font-weight: 400;
+      font-size: 14px;
+    }
+
+    .submit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .submit-row small {
+      color: var(--muted);
+      max-width: 560px;
+      font-size: 12px;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      min-height: 48px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--orange);
+      color: #173657;
+      padding: 12px 24px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: var(--orange-soft);
+    }
+
+    .status {
+      display: none;
+      margin-top: 18px;
+      padding: 14px 16px;
+      border: 1px solid #f2d7a6;
+      border-radius: 10px;
+      background: #fff8ee;
+      color: var(--ink);
+      font-size: 14px;
+    }
+
+    .status.visible {
+      display: block;
+    }
+
+    .external-form-frame {
+      width: 100%;
+      max-width: 708px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .external-form-frame iframe {
+      display: block;
+      width: 100%;
+      height: 630px;
+      border: 0;
+      background: #fff;
+    }
+
+    footer {
+      background: #fff;
+      border-top: 1px solid var(--line);
+      padding: 18px 0 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .hero-inner, .two-col, .form-grid, .trust-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .top-controls {
+        justify-content: center;
+      }
+
+      .cta-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .submit-row {
+        flex-direction: column-reverse;
+        align-items: stretch;
+      }
+
+      .submit-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-header">
+      <div class="logo-wrap">
+        <svg viewBox="0 0 760 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schön Klinik Rendsburg Logo">
+          <rect width="760" height="100" fill="#18395e"/>
+          <circle cx="60" cy="50" r="38" fill="#f28a13"/>
+          <path d="M58 50 L86 23 L94 30 L66 57 Z" fill="#18395e"/>
+          <circle cx="60" cy="50" r="11" fill="#d8272f" stroke="#18395e" stroke-width="3"/>
+          <text x="120" y="50" fill="#ffffff" font-size="42" font-family="Arial, Helvetica, sans-serif" font-weight="700">SCHÖN KLINIK</text>
+          <text x="123" y="78" fill="#ffffff" font-size="30" font-family="Arial, Helvetica, sans-serif">Rendsburg</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="top-controls">
+      <div class="lang-box">
+        <label for="language" data-i18n="languageLabel">Sprache</label>
+        <span class="flag" id="flag-display" aria-hidden="true">
+          <svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
+            <rect width="30" height="20" fill="#000"/>
+            <rect y="6.67" width="30" height="6.66" fill="#dd0000"/>
+            <rect y="13.33" width="30" height="6.67" fill="#ffce00"/>
+          </svg>
+        </span>
+        <select id="language" aria-label="Sprache wählen">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="uk">Українська</option>
+          <option value="tr">Türkçe</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <p class="eyebrow" data-i18n="eyebrow">Schön Klinik MVZ Rendsburg · Zweigpraxis Kaiserstraße</p>
+        <h1 data-i18n="title">Willkommen zur Patientinnenaufnahme</h1>
+        <p class="lead" data-i18n="subtitle">Bitte füllen Sie den digitalen Anamnesebogen vor Ihrem Termin aus. So können wir Sie optimal vorbereiten und alle wichtigen Informationen rechtzeitig erfassen.</p>
+
+        <div class="cta-row">
+          <a href="#form" class="btn btn-primary" data-i18n="startBtn">Anamnesebogen starten</a>
+          <a href="#praxis" class="btn btn-secondary" data-i18n="infoBtn">Praxisinfos</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="mini-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 4h8l2 2v14H6V4h2z"></path>
+            <path d="M9 4V2h6v2"></path>
+            <path d="M9 10h6M9 14h6M9 18h4"></path>
+          </svg>
+        </div>
+        <h3 data-i18n="heroCardTitle">Sicher &amp; digital</h3>
+        <ul>
+          <li data-i18n="heroCardOne">Mehrsprachig verfügbar</li>
+          <li data-i18n="heroCardTwo">Transparent und datensicher</li>
+          <li data-i18n="heroCardThree">Zur Vorbereitung Ihres Termins</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <section class="trust-grid">
+      <div class="info-card">
+        <h3 data-i18n="card1Title">Praxis &amp; Fachrichtung</h3>
+        <p data-i18n="card1Text">Gynäkologie · Zweigpraxis in Rendsburg · individuelle Beratung und moderne Patientenversorgung.</p>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="card2Title">Öffnungszeiten</h3>
+        <p data-i18n="card2Text">Montag bis Freitag · Sprechstunden und offene Sprechzeiten für akute Beschwerden.</p>
+      </div>
+      <div class="info-card">
+        <h3 data-i18n="card3Title">Kontakt</h3>
+        <p data-i18n="card3Text">Kaiserstraße 24, 24768 Rendsburg · +49 4331 55544 · Terminvereinbarung möglich.</p>
+      </div>
+    </section>
+
+    <section class="section" id="praxis">
+      <div class="section-head">
+        <span class="mini-box" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M3 12h18"></path>
+            <path d="M12 21V3"></path>
+            <circle cx="12" cy="12" r="8"></circle>
+          </svg>
+        </span>
+        <h2 data-i18n="practiceTitle">Praxis &amp; Kontakt</h2>
+      </div>
+      <div class="section-body two-col">
+        <div>
+          <ul class="practice-list">
+            <li><span class="dot"></span><span><strong>Schön Klinik MVZ Rendsburg – Zweigpraxis Rendsburg Kaiserstraße</strong><br>Gynäkologie<br>Kaiserstraße 24, 24768 Rendsburg</span></li>
+            <li><span class="dot"></span><span><strong data-i18n="telText">Telefon:</strong> <a href="tel:+49433155544">+49 4331 55544</a></span></li>
+            <li><span class="dot"></span><span><strong data-i18n="openText">Offene Sprechstunden:</strong> Montag bis Freitag von 11:00–12:00 Uhr</span></li>
+          </ul>
+
+          <div class="notice-box">
+            <strong data-i18n="noticeTitle">Hinweis</strong>
+            <p data-i18n="noticeText">Bitte keine akuten Notfälle über das Online-Formular melden. Bei dringenden Beschwerden rufen Sie bitte 112 an.</p>
+          </div>
+        </div>
+
+        <div>
+          <table class="hours">
+            <tbody>
+              <tr><td data-i18n="monday">Montag</td><td>08:00–12:00, 15:00–18:00</td></tr>
+              <tr><td data-i18n="tuesday">Dienstag</td><td>08:00–12:00, 15:00–18:00</td></tr>
+              <tr><td data-i18n="wednesday">Mittwoch</td><td data-i18n="specialHours">Spezialsprechstunden / Termin</td></tr>
+              <tr><td data-i18n="thursday">Donnerstag</td><td>08:00–12:00, 15:00–18:00</td></tr>
+              <tr><td data-i18n="friday">Freitag</td><td>08:00–12:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="form">
+      <div class="section-head">
+        <span class="mini-box" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <path d="M8 4h8l2 2v14H6V4h2z"></path>
+            <path d="M9 4V2h6v2"></path>
+            <path d="M9 10h6M9 14h6M9 18h4"></path>
+          </svg>
+        </span>
+        <h2 data-i18n="formTitle">Digitaler Anamnesebogen</h2>
+      </div>
+
+      <div class="section-body">
+        <div class="external-form-frame">
+          <iframe
+            src="https://puc.doc-cirrus.com/intime?tab=login&prac=2b3c2154-9038-479b-9f68-506ee4314c80&referrer=tab%3Dprectices%26prac%3D2b3c2154-9038-479b-9f68-506ee4314c80"
+            title="Digitaler Anamnesebogen"
+            width="708"
+            height="630"
+            scrolling="auto"
+            loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © Schön Klinik MVZ Rendsburg · <span data-i18n="footerNote">Patientinnenaufnahme</span>
+    </div>
+  </footer>
+
+  <script>
+    const translations = {
+      de: {
+        languageLabel: "Sprache",
+        eyebrow: "Schön Klinik MVZ Rendsburg · Zweigpraxis Kaiserstraße",
+        title: "Willkommen zur Patientinnenaufnahme",
+        subtitle: "Bitte füllen Sie den digitalen Anamnesebogen vor Ihrem Termin aus. So können wir Sie optimal vorbereiten und alle wichtigen Informationen rechtzeitig erfassen.",
+        startBtn: "Anamnesebogen starten",
+        infoBtn: "Praxisinfos",
+        heroCardTitle: "Sicher & digital",
+        heroCardOne: "Mehrsprachig verfügbar",
+        heroCardTwo: "Transparent und datensicher",
+        heroCardThree: "Zur Vorbereitung Ihres Termins",
+        card1Title: "Praxis & Fachrichtung",
+        card1Text: "Gynäkologie · Zweigpraxis in Rendsburg · individuelle Beratung und moderne Patientenversorgung.",
+        card2Title: "Öffnungszeiten",
+        card2Text: "Montag bis Freitag · Sprechstunden und offene Sprechzeiten für akute Beschwerden.",
+        card3Title: "Kontakt",
+        card3Text: "Kaiserstraße 24, 24768 Rendsburg · +49 4331 55544 · Terminvereinbarung möglich.",
+        practiceTitle: "Praxis & Kontakt",
+        telText: "Telefon:",
+        openText: "Offene Sprechstunden:",
+        noticeTitle: "Hinweis",
+        noticeText: "Bitte keine akuten Notfälle über das Online-Formular melden. Bei dringenden Beschwerden rufen Sie bitte 112 an.",
+        monday: "Montag",
+        tuesday: "Dienstag",
+        wednesday: "Mittwoch",
+        thursday: "Donnerstag",
+        friday: "Freitag",
+        specialHours: "Spezialsprechstunden / Termin",
+        formTitle: "Digitaler Anamnesebogen",
+        footerNote: "Patientinnenaufnahme",
+      },
+      en: {
+        languageLabel: "Language",
+        eyebrow: "Schön Klinik MVZ Rendsburg · Kaiserstraße branch",
+        title: "Welcome to patient registration",
+        subtitle: "Please complete the digital medical history form before your appointment so we can prepare properly and capture all relevant information in advance.",
+        startBtn: "Start form",
+        infoBtn: "Practice info",
+        heroCardTitle: "Secure & digital",
+        heroCardOne: "Available in multiple languages",
+        heroCardTwo: "Transparent and privacy-conscious",
+        heroCardThree: "Prepared for your visit",
+        card1Title: "Practice & specialty",
+        card1Text: "Gynecology · Branch practice in Rendsburg · individualized care and modern patient support.",
+        card2Title: "Opening hours",
+        card2Text: "Monday to Friday · consultation hours and open sessions for acute complaints.",
+        card3Title: "Contact",
+        card3Text: "Kaiserstraße 24, 24768 Rendsburg · +49 4331 55544 · appointments available.",
+        practiceTitle: "Practice & contact",
+        telText: "Phone:",
+        openText: "Open consultation hours:",
+        noticeTitle: "Notice",
+        noticeText: "Please do not report emergencies through the online form. In urgent cases, please call 112.",
+        monday: "Monday",
+        tuesday: "Tuesday",
+        wednesday: "Wednesday",
+        thursday: "Thursday",
+        friday: "Friday",
+        specialHours: "Special consultations / appointment",
+        formTitle: "Digital medical history form",
+        footerNote: "Patient registration",
+      },
+      ru: {
+        languageLabel: "Язык",
+        eyebrow: "Schön Klinik MVZ Rendsburg · филиал Kaiserstraße",
+        title: "Добро пожаловать на регистрацию пациента",
+        subtitle: "Пожалуйста, заполните цифровую анкету перед приёмом, чтобы мы могли подготовиться и собрать важную информацию заранее.",
+        startBtn: "Начать форму",
+        infoBtn: "Информация о клинике",
+        heroCardTitle: "Безопасно и удобно",
+        heroCardOne: "Доступно на нескольких языках",
+        heroCardTwo: "Прозрачность и защита данных",
+        heroCardThree: "Подготовка к приёму",
+        card1Title: "Клиника и специализация",
+        card1Text: "Гинекология · филиал в Рендсбурге · индивидуальный подход и современная помощь пациентам.",
+        card2Title: "Режим работы",
+        card2Text: "Понедельник-пятница · приём и открытые консультации для острых жалоб.",
+        card3Title: "Контакты",
+        card3Text: "Kaiserstraße 24, 24768 Rendsburg · +49 4331 55544 · возможна запись на прием.",
+        practiceTitle: "Клиника и контакты",
+        telText: "Телефон:",
+        openText: "Приём без записи:",
+        noticeTitle: "Важно",
+        noticeText: "Пожалуйста, не сообщайте о срочных состояниях через онлайн-форму. В экстренных случаях звоните 112.",
+        monday: "Понедельник",
+        tuesday: "Вторник",
+        wednesday: "Среда",
+        thursday: "Четверг",
+        friday: "Пятница",
+        specialHours: "Специальные консультации / запись",
+        formTitle: "Цифровой анамнестический лист",
+        footerNote: "Регистрация пациента",
+      },
+      uk: {
+        languageLabel: "Мова",
+        eyebrow: "Schön Klinik MVZ Rendsburg · філія Kaiserstraße",
+        title: "Ласкаво просимо на реєстрацію пацієнта",
+        subtitle: "Будь ласка, заповніть цифрову анкету до прийому, щоб ми могли підготуватися та зібрати важливу інформацію заздалегідь.",
+        startBtn: "Розпочати форму",
+        infoBtn: "Інформація про клініку",
+        heroCardTitle: "Безпечно та зручно",
+        heroCardOne: "Доступно кількома мовами",
+        heroCardTwo: "Прозорість та захист даних",
+        heroCardThree: "Підготовка до прийому",
+        card1Title: "Клініка та спеціалізація",
+        card1Text: "Гінекологія · філія в Рендсбурзі · індивідуальний підхід та сучасний догляд.",
+        card2Title: "Режим роботи",
+        card2Text: "Понеділок-п’ятниця · прийом та відкриті консультації для гострих скарг.",
+        card3Title: "Контакти",
+        card3Text: "Kaiserstraße 24, 24768 Rendsburg · +49 4331 55544 · можливий запис на прийом.",
+        practiceTitle: "Клініка та контакти",
+        telText: "Телефон:",
+        openText: "Прийом без запису:",
+        noticeTitle: "Увага",
+        noticeText: "Не надсилайте невідкладні ситуації через онлайн-форму. У разі потреби телефонуйте 112.",
+        monday: "Понеділок",
+        tuesday: "Вівторок",
+        wednesday: "Середа",
+        thursday: "Четвер",
+        friday: "П’ятниця",
+        specialHours: "Спеціальні консультації / запис",
+        formTitle: "Цифрова анкета пацієнта",
+        footerNote: "Реєстрація пацієнта",
+      },
+      tr: {
+        languageLabel: "Dil",
+        eyebrow: "Schön Klinik MVZ Rendsburg · Kaiserstraße şubesi",
+        title: "Hasta kabulüne hoş geldiniz",
+        subtitle: "Lütfen randevunuzdan önce dijital anketi doldurun; böylece sizi uygun şekilde hazırlayabilir ve gerekli bilgileri önceden toplayabiliriz.",
+        startBtn: "Formu başlat",
+        infoBtn: "Klinik bilgisi",
+        heroCardTitle: "Güvenli & dijital",
+        heroCardOne: "Birden fazla dilde kullanılabilir",
+        heroCardTwo: "Şeffaf ve veri güvenliği odaklı",
+        heroCardThree: "Muayene için hazırlık",
+        card1Title: "Klinik & uzmanlık",
+        card1Text: "Jinekoloji · Rendsburg şubesi · kişiye özel bakım ve modern hasta hizmeti.",
+        card2Title: "Çalışma saatleri",
+        card2Text: "Pazartesi-Cuma · muayene saatleri ve akut şikâyetler için açık muayeneler.",
+        card3Title: "İletişim",
+        card3Text: "Kaiserstraße 24, 24768 Rendsburg · +49 4331 55544 · randevu mümkündür.",
+        practiceTitle: "Klinik & iletişim",
+        telText: "Telefon:",
+        openText: "Randevusuz muayene:",
+        noticeTitle: "Not",
+        noticeText: "Acil durumları çevrimiçi form üzerinden iletmeyin. Acil durumda 112'yi arayın.",
+        monday: "Pazartesi",
+        tuesday: "Salı",
+        wednesday: "Çarşamba",
+        thursday: "Perşembe",
+        friday: "Cuma",
+        specialHours: "Özel muayeneler / randevu",
+        formTitle: "Dijital anamnez formu",
+        footerNote: "Hasta kabulü",
+      }
+    };
+
+    const flagSvgs = {
+      de: `<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#000"/><rect y="6.67" width="30" height="6.66" fill="#dd0000"/><rect y="13.33" width="30" height="6.67" fill="#ffce00"/></svg>`,
+      en: `<svg viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#c8102e" stroke-width="2.5"/><path d="M25 0h10v30H25zM0 10h60v10H0z" fill="#fff"/><path d="M27 0h6v30h-6zM0 12h60v6H0z" fill="#c8102e"/></svg>`,
+      ru: `<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.66" fill="#0039a6"/><rect y="13.33" width="30" height="6.67" fill="#d52b1e"/></svg>`,
+      uk: `<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#0057b7"/><rect y="10" width="30" height="10" fill="#ffd700"/></svg>`,
+      tr: `<svg viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="20" fill="#e30a17"/><circle cx="11" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#e30a17"/><path d="M19.2 6.8l1 2.2 2.4.2-1.8 1.5.6 2.3-2.2-1.2-2.1 1.2.5-2.3-1.8-1.5 2.4-.2z" fill="#fff"/></svg>`
+    };
+
+    const languageSelect = document.getElementById("language");
+    const flagDisplay = document.getElementById("flag-display");
+
+    function applyLanguage(lang) {
+      const pageText = translations[lang] || translations.de;
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll("[data-i18n]").forEach((element) => {
+        const key = element.dataset.i18n;
+        if (pageText[key]) {
+          element.textContent = pageText[key];
+        }
+      });
+
+      flagDisplay.innerHTML = flagSvgs[lang] || flagSvgs.de;
+    }
+
+    languageSelect.addEventListener("change", (e) => {
+      applyLanguage(e.target.value);
+    });
+
+    applyLanguage(languageSelect.value);
+  </script>
+</body>
+</html>

@@ -1,0 +1,1720 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schön Klinik MVZ Rendsburg | Digitale Patientinnenaufnahme</title>
+  <style>
+    :root {
+      --navy: #18395e;
+      --navy-deep: #0f2850;
+      --navy-light: #245385;
+      --orange: #f28a13;
+      --orange-hover: #e07b08;
+      --orange-soft: #fff4e6;
+      --red: #d8272f;
+      --green: #16a34a;
+      --green-soft: #dcfce7;
+      --white: #ffffff;
+      --ink: #1e293b;
+      --muted: #64748b;
+      --bg: #f1f5f9;
+      --line: #cbd5e1;
+      --line-light: #e2e8f0;
+      --soft: #f8fafc;
+      --shadow-sm: 0 2px 8px rgba(15, 40, 80, 0.05);
+      --shadow-md: 0 10px 25px rgba(15, 40, 80, 0.08);
+      --shadow-lg: 0 20px 40px rgba(15, 40, 80, 0.12);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    button, input, select, textarea { font: inherit; }
+
+    .wrap {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    /* Top Accent Bar */
+    .topbar {
+      height: 6px;
+      background: linear-gradient(90deg, var(--orange) 0% 35%, var(--navy) 35% 100%);
+    }
+
+    /* Header */
+    header {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .header-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .logo-wrap {
+      width: min(360px, 65vw);
+      display: flex;
+      align-items: center;
+    }
+
+    .logo-wrap svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .lang-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      color: white;
+    }
+
+    .lang-box label {
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      font-weight: 600;
+      margin: 0;
+    }
+
+    .flag {
+      display: inline-flex;
+      width: 26px;
+      height: 18px;
+      border-radius: 3px;
+      overflow: hidden;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .flag svg { width: 100%; height: 100%; display: block; }
+
+    .lang-box select {
+      min-width: 130px;
+      padding: 6px 28px 6px 8px;
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 6px center;
+    }
+
+    .lang-box select:focus { outline: none; }
+    .lang-box select option { color: var(--ink); background: #fff; }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, var(--navy-light) 100%);
+      color: #fff;
+      padding: 44px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -10%;
+      top: -20%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(242,138,19,0.16) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(242, 138, 19, 0.18);
+      border: 1px solid rgba(242, 138, 19, 0.4);
+      color: #ffd8a8;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(28px, 4.2vw, 46px);
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      margin: 16px 0 0;
+      color: #e2e8f0;
+      font-size: 17px;
+      max-width: 600px;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 48px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: 0;
+      font-weight: 700;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(242,138,19,0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: #fff;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+    }
+
+    .btn-outline {
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--navy);
+    }
+
+    .btn-outline:hover {
+      background: var(--soft);
+      border-color: var(--navy);
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-card h3 {
+      margin: 0 0 14px;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: #f1f5f9;
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Main Layout */
+    main {
+      margin-top: -28px;
+      padding-bottom: 64px;
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Wizard Container */
+    .wizard-card {
+      background: var(--white);
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--line-light);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    /* Stepper Header */
+    .stepper-header {
+      background: var(--soft);
+      border-bottom: 1px solid var(--line-light);
+      padding: 24px 28px;
+    }
+
+    .stepper-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .stepper-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--navy);
+      margin: 0;
+    }
+
+    .save-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-soft);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .steps-track {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      position: relative;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1.5px solid var(--line-light);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .step-item.active {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+    }
+
+    .step-item.completed {
+      border-color: var(--navy);
+      background: #f0f4f8;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--line-light);
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 13px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .step-item.active .step-num {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    .step-item.completed .step-num {
+      background: var(--navy);
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    .step-item.active .step-label,
+    .step-item.completed .step-label {
+      color: var(--navy);
+    }
+
+    /* Form Steps */
+    .wizard-body {
+      padding: 32px 28px;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .form-step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-heading {
+      margin: 0 0 6px;
+      font-size: 22px;
+      color: var(--navy);
+      font-weight: 800;
+    }
+
+    .step-sub {
+      margin: 0 0 24px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .field { min-width: 0; }
+    .field.full { grid-column: 1 / -1; }
+
+    label.field-label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .req { color: var(--red); }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="date"],
+    textarea,
+    select.form-select {
+      width: 100%;
+      min-height: 44px;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      padding: 10px 14px;
+      color: var(--ink);
+      font-size: 15px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus, textarea:focus, select.form-select:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(24, 57, 94, 0.12);
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    /* Radio & Checkbox Pills */
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill-option {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .pill-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pill-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: 1.5px solid var(--line);
+      border-radius: 10px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      transition: all 0.15s ease;
+    }
+
+    .pill-option input:checked + .pill-box {
+      border-color: var(--navy);
+      background: #eef4fa;
+      color: var(--navy);
+      box-shadow: 0 2px 6px rgba(24,57,94,0.08);
+    }
+
+    /* Conditional Sub-box */
+    .conditional-box {
+      margin-top: 12px;
+      padding: 16px;
+      background: var(--soft);
+      border-left: 4px solid var(--navy);
+      border-radius: 0 10px 10px 0;
+      display: none;
+    }
+
+    .conditional-box.visible {
+      display: block;
+    }
+
+    /* Divider */
+    .form-divider {
+      border: 0;
+      border-top: 1px solid var(--line-light);
+      margin: 26px 0;
+    }
+
+    /* Legal & Consent Cards */
+    .legal-card {
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      background: var(--soft);
+    }
+
+    .legal-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .legal-card-title {
+      font-weight: 800;
+      color: var(--navy);
+      font-size: 15px;
+    }
+
+    .legal-scroll {
+      max-height: 110px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid var(--line-light);
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .checkbox-row input {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      accent-color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    /* Digital Signature Pad */
+    .signature-wrapper {
+      border: 2px dashed var(--line);
+      border-radius: 14px;
+      background: #fff;
+      padding: 16px;
+      margin-top: 12px;
+    }
+
+    .signature-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .signature-hint {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-clear-sig {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-clear-sig:hover { background: #fecaca; }
+
+    canvas#signature-pad {
+      width: 100%;
+      height: 180px;
+      background: #fafcff;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: crosshair;
+      touch-action: none;
+      display: block;
+    }
+
+    .signature-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    /* Summary Box */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      background: var(--soft);
+      border: 1px solid var(--line-light);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .summary-item strong {
+      display: block;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .summary-item span {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* Wizard Footer Navigation */
+    .wizard-footer {
+      padding: 20px 28px;
+      background: var(--soft);
+      border-top: 1px solid var(--line-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Success / Receipt View */
+    .receipt-box {
+      display: none;
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .receipt-box.visible {
+      display: block;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .success-badge {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: var(--green-soft);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+    }
+
+    .checkin-code {
+      display: inline-block;
+      background: var(--navy);
+      color: #fff;
+      font-family: monospace;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      padding: 12px 24px;
+      border-radius: 12px;
+      margin: 16px 0;
+    }
+
+    /* Practice Info Section */
+    .info-section {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--line-light);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+    }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .hours-table td {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line-light);
+    }
+
+    .hours-table td:first-child {
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .emergency-banner {
+      margin-top: 18px;
+      padding: 14px 16px;
+      background: #fef2f2;
+      border-left: 4px solid var(--red);
+      border-radius: 8px;
+      font-size: 13px;
+      color: #7f1d1d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Print Styles for Patient Receipt / PDF Export */
+    @media print {
+      header, .hero, .stepper-header, .wizard-footer, .info-section, .no-print {
+        display: none !important;
+      }
+      body { background: #fff; }
+      main { margin: 0; padding: 0; }
+      .wizard-card { box-shadow: none; border: none; }
+      .receipt-box { display: block !important; text-align: left; padding: 0; }
+    }
+
+    @media (max-width: 820px) {
+      .hero-inner, .info-grid { grid-template-columns: 1fr; }
+      .steps-track { grid-template-columns: repeat(2, 1fr); }
+      .form-grid, .form-grid-3, .summary-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar"></div>
+
+  <header>
+    <div class="wrap header-inner">
+      <div class="logo-wrap">
+        <svg viewBox="0 0 760 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schön Klinik Rendsburg Logo">
+          <rect width="760" height="100" fill="transparent"/>
+          <circle cx="50" cy="50" r="38" fill="#f28a13"/>
+          <path d="M48 50 L76 23 L84 30 L56 57 Z" fill="#18395e"/>
+          <circle cx="50" cy="50" r="11" fill="#d8272f" stroke="#18395e" stroke-width="3"/>
+          <text x="108" y="48" fill="#ffffff" font-size="40" font-family="Arial, Helvetica, sans-serif" font-weight="700">SCHÖN KLINIK</text>
+          <text x="110" y="78" fill="#e2e8f0" font-size="26" font-family="Arial, Helvetica, sans-serif">MVZ Rendsburg · Gynäkologie</text>
+        </svg>
+      </div>
+
+      <div class="lang-box">
+        <label for="language" data-i18n="languageLabel">Sprache</label>
+        <span class="flag" id="flag-display" aria-hidden="true"></span>
+        <select id="language" aria-label="Sprache wählen">
+          <option value="de">Deutsch</option>
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="uk">Українська</option>
+          <option value="tr">Türkçe</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <div>
+        <div class="badge" data-i18n="eyebrow">Digitaler Check-in · Zweigpraxis Kaiserstraße</div>
+        <h1 data-i18n="title">Digitale Patientinnenaufnahme & Anamnese</h1>
+        <p class="lead" data-i18n="subtitle">Füllen Sie Ihren Anamnesebogen bequem vorab aus und unterschreiben Sie direkt digital – für kürzere Wartezeiten und mehr Zeit für Ihr ärztliches Gespräch.</p>
+
+        <div class="cta-row">
+          <a href="#wizard" class="btn btn-primary" data-i18n="startBtn">Jetzt Aufnahme starten</a>
+          <a href="#praxis" class="btn btn-secondary" data-i18n="infoBtn">Sprechzeiten & Kontakt</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#f28a13" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span data-i18n="heroCardTitle">Ihre Vorteile im Überblick</span>
+        </h3>
+        <ul class="check-list">
+          <li>
+            <span class="check-icon">✓</span>
+            <span data-i18n="heroCardOne">Kein Klemmbrett im Wartezimmer nötig</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span data-i18n="heroCardTwo">Strukturierte gynäkologische Anamnese in 5 Sprachen</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span data-i18n="heroCardThree">DSGVO-konforme Einwilligung & digitale Unterschrift</span>
+          </li>
+          <li>
+            <span class="check-icon">✓</span>
+            <span data-i18n="heroCardFour">Sofortiger Check-in-Code & PDF-Beleg für Ihre Unterlagen</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <main class="wrap">
+    <!-- WIZARD CONTAINER -->
+    <div class="wizard-card" id="wizard">
+      <div class="stepper-header">
+        <div class="stepper-top">
+          <h2 class="stepper-title" data-i18n="wizardTitle">Digitaler Aufnahmebogen</h2>
+          <div class="save-indicator">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            <span data-i18n="autoSaveBadge">DSGVO-geschützt · Zwischenspeicherung aktiv</span>
+          </div>
+        </div>
+
+        <div class="steps-track">
+          <div class="step-item active" data-step="1" onclick="goToStep(1)">
+            <div class="step-num">1</div>
+            <div class="step-label" data-i18n="step1Label">Stammdaten & Versicherung</div>
+          </div>
+          <div class="step-item" data-step="2" onclick="goToStep(2)">
+            <div class="step-num">2</div>
+            <div class="step-label" data-i18n="step2Label">Gynäkologische Anamnese</div>
+          </div>
+          <div class="step-item" data-step="3" onclick="goToStep(3)">
+            <div class="step-num">3</div>
+            <div class="step-label" data-i18n="step3Label">Vorerkrankungen & Medikamente</div>
+          </div>
+          <div class="step-item" data-step="4" onclick="goToStep(4)">
+            <div class="step-num">4</div>
+            <div class="step-label" data-i18n="step4Label">Datenschutz & Unterschrift</div>
+          </div>
+        </div>
+      </div>
+
+      <form id="intake-form" novalidate>
+        <div class="wizard-body" id="wizard-body">
+          
+          <!-- STEP 1: STAMMDATEN -->
+          <div class="form-step active" data-step="1">
+            <h3 class="step-heading" data-i18n="s1Heading">1. Persönliche Daten & Versicherung</h3>
+            <p class="step-sub" data-i18n="s1Sub">Bitte geben Sie Ihre aktuellen Kontaktdaten an. Pflichtfelder sind mit * gekennzeichnet.</p>
+
+            <div class="form-grid-3">
+              <div class="field">
+                <label class="field-label" for="salutation" data-i18n="salutation">Anrede</label>
+                <select id="salutation" name="salutation" class="form-select">
+                  <option value="Frau" data-i18n="salutationMs">Frau</option>
+                  <option value="Divers" data-i18n="salutationDiv">Divers / Keine Angabe</option>
+                  <option value="Herr" data-i18n="salutationMr">Herr</option>
+                </select>
+              </div>
+              <div class="field">
+                <label class="field-label" for="firstName"><span data-i18n="firstName">Vorname</span> <span class="req">*</span></label>
+                <input id="firstName" name="firstName" type="text" required placeholder="z. B. Anna">
+              </div>
+              <div class="field">
+                <label class="field-label" for="lastName"><span data-i18n="lastName">Nachname</span> <span class="req">*</span></label>
+                <input id="lastName" name="lastName" type="text" required placeholder="z. B. Musterfrau">
+              </div>
+            </div>
+
+            <div class="form-grid" style="margin-top: 20px;">
+              <div class="field">
+                <label class="field-label" for="birthDate"><span data-i18n="birthDate">Geburtsdatum</span> <span class="req">*</span></label>
+                <input id="birthDate" name="birthDate" type="date" required>
+              </div>
+              <div class="field">
+                <label class="field-label" for="phone"><span data-i18n="phone">Mobil- / Telefonnummer</span> <span class="req">*</span></label>
+                <input id="phone" name="phone" type="tel" required placeholder="+49 170 ...">
+              </div>
+              <div class="field">
+                <label class="field-label" for="email" data-i18n="email">E-Mail-Adresse (für Terminbestätigung)</label>
+                <input id="email" name="email" type="email" placeholder="name@beispiel.de">
+              </div>
+              <div class="field">
+                <label class="field-label" for="address" data-i18n="address">Straße, Hausnummer, PLZ, Ort</label>
+                <input id="address" name="address" type="text" placeholder="Musterweg 12, 24768 Rendsburg">
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <div class="form-grid">
+              <div class="field">
+                <label class="field-label" data-i18n="insuranceType">Versicherungsart <span class="req">*</span></label>
+                <div class="pill-group">
+                  <label class="pill-option">
+                    <input type="radio" name="insuranceType" value="Gesetzlich (GKV)" checked>
+                    <span class="pill-box" data-i18n="insGKV">Gesetzlich (GKV)</span>
+                  </label>
+                  <label class="pill-option">
+                    <input type="radio" name="insuranceType" value="Privat (PKV)">
+                    <span class="pill-box" data-i18n="insPKV">Privat (PKV)</span>
+                  </label>
+                  <label class="pill-option">
+                    <input type="radio" name="insuranceType" value="Selbstzahler">
+                    <span class="pill-box" data-i18n="insSelf">Selbstzahler</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label" for="insuranceName" data-i18n="insuranceName">Krankenkasse / Versicherung</label>
+                <input id="insuranceName" name="insuranceName" type="text" placeholder="z. B. Techniker Krankenkasse, AOK ...">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: GYNÄKOLOGISCHE ANAMNESE -->
+          <div class="form-step" data-step="2">
+            <h3 class="step-heading" data-i18n="s2Heading">2. Anlass des Besuchs & Gynäkologische Angaben</h3>
+            <p class="step-sub" data-i18n="s2Sub">Diese Informationen helfen dem ärztlichen Team bei der gezielten Vorbereitung Ihrer Untersuchung.</p>
+
+            <div class="field full">
+              <label class="field-label" data-i18n="visitReason">Grund Ihres heutigen Besuchs (Mehrfachauswahl möglich)</label>
+              <div class="pill-group">
+                <label class="pill-option">
+                  <input type="checkbox" name="visitReason" value="Krebsvorsorge">
+                  <span class="pill-box" data-i18n="rCheckup">Krebsvorsorge / Routine</span>
+                </label>
+                <label class="pill-option">
+                  <input type="checkbox" name="visitReason" value="Akute Beschwerden">
+                  <span class="pill-box" data-i18n="rAcute">Akute Beschwerden</span>
+                </label>
+                <label class="pill-option">
+                  <input type="checkbox" name="visitReason" value="Schwangerschaft">
+                  <span class="pill-box" data-i18n="rPreg">Schwangerschaft / Vorsorge</span>
+                </label>
+                <label class="pill-option">
+                  <input type="checkbox" name="visitReason" value="Verhütung">
+                  <span class="pill-box" data-i18n="rContra">Verhütungsberatung</span>
+                </label>
+                <label class="pill-option">
+                  <input type="checkbox" name="visitReason" value="Kinderwunsch">
+                  <span class="pill-box" data-i18n="rFertility">Kinderwunsch</span>
+                </label>
+                <label class="pill-option">
+                  <input type="checkbox" name="visitReason" value="Wechseljahre">
+                  <span class="pill-box" data-i18n="rMeno">Wechseljahresbeschwerden</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="field full" style="margin-top: 18px;">
+              <label class="field-label" for="reasonDetails" data-i18n="reasonDetails">Nähere Beschreibung Ihrer Beschwerden oder Fragen</label>
+              <textarea id="reasonDetails" name="reasonDetails" placeholder="Seit wann bestehen Beschwerden? Gibt es spezielle Wünsche für das Gespräch?"></textarea>
+            </div>
+
+            <hr class="form-divider">
+
+            <div class="form-grid">
+              <div class="field">
+                <label class="field-label" for="lastPeriod" data-i18n="lastPeriod">Erster Tag der letzten Regelblutung</label>
+                <input id="lastPeriod" name="lastPeriod" type="date">
+              </div>
+              <div class="field">
+                <label class="field-label" data-i18n="cycleType">Zyklusverlauf</label>
+                <div class="pill-group">
+                  <label class="pill-option">
+                    <input type="radio" name="cycleType" value="Regelmäßig">
+                    <span class="pill-box" data-i18n="cReg">Regelmäßig</span>
+                  </label>
+                  <label class="pill-option">
+                    <input type="radio" name="cycleType" value="Unregelmäßig">
+                    <span class="pill-box" data-i18n="cIrreg">Unregelmäßig</span>
+                  </label>
+                  <label class="pill-option">
+                    <input type="radio" name="cycleType" value="Keine Blutung / Menopause">
+                    <span class="pill-box" data-i18n="cNone">Keine Blutung / Menopause</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-grid" style="margin-top: 20px;">
+              <div class="field">
+                <label class="field-label" data-i18n="pregnancy">Besteht aktuell eine Schwangerschaft?</label>
+                <div class="pill-group">
+                  <label class="pill-option">
+                    <input type="radio" name="pregnancy" value="Ja">
+                    <span class="pill-box" data-i18n="yes">Ja</span>
+                  </label>
+                  <label class="pill-option">
+                    <input type="radio" name="pregnancy" value="Nein">
+                    <span class="pill-box" data-i18n="no">Nein</span>
+                  </label>
+                  <label class="pill-option">
+                    <input type="radio" name="pregnancy" value="Unsicher">
+                    <span class="pill-box" data-i18n="unsure">Unsicher</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field">
+                <label class="field-label" for="contraception" data-i18n="contraception">Aktuelle Verhütungsmethode (falls zutreffend)</label>
+                <input id="contraception" name="contraception" type="text" placeholder="z. B. Pille, Spirale, Kondom, keine">
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: VORERKRANKUNGEN & MEDIKAMENTE -->
+          <div class="form-step" data-step="3">
+            <h3 class="step-heading" data-i18n="s3Heading">3. Vorerkrankungen, Medikamente & Allergien</h3>
+            <p class="step-sub" data-i18n="s3Sub">Wichtige medizinische Hintergrundinformationen zu Ihrer Sicherheit.</p>
+
+            <div class="field full">
+              <label class="field-label" data-i18n="hasConditions">Bestehen chronische Vorerkrankungen oder gab es frühere Operationen?</label>
+              <div class="pill-group">
+                <label class="pill-option">
+                  <input type="radio" name="hasConditions" value="Nein" checked onchange="toggleBox('cond-box', false)">
+                  <span class="pill-box" data-i18n="no">Nein</span>
+                </label>
+                <label class="pill-option">
+                  <input type="radio" name="hasConditions" value="Ja" onchange="toggleBox('cond-box', true)">
+                  <span class="pill-box" data-i18n="yesSpecify">Ja, bitte angeben</span>
+                </label>
+              </div>
+              <div class="conditional-box" id="cond-box">
+                <label class="field-label" for="conditions" data-i18n="conditionsLabel">Welche Vorerkrankungen / Operationen? (z. B. Bluthochdruck, Schilddrüse, Thrombose, Bauch-OPs)</label>
+                <textarea id="conditions" name="conditions" placeholder="Bitte stichpunktartig eintragen..."></textarea>
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <div class="field full">
+              <label class="field-label" data-i18n="hasMeds">Nehmen Sie regelmäßig Medikamente ein?</label>
+              <div class="pill-group">
+                <label class="pill-option">
+                  <input type="radio" name="hasMeds" value="Nein" checked onchange="toggleBox('meds-box', false)">
+                  <span class="pill-box" data-i18n="no">Nein</span>
+                </label>
+                <label class="pill-option">
+                  <input type="radio" name="hasMeds" value="Ja" onchange="toggleBox('meds-box', true)">
+                  <span class="pill-box" data-i18n="yesSpecify">Ja, bitte angeben</span>
+                </label>
+              </div>
+              <div class="conditional-box" id="meds-box">
+                <label class="field-label" for="medications" data-i18n="medsLabel">Präparat und Dosierung (falls bekannt)</label>
+                <textarea id="medications" name="medications" placeholder="z. B. L-Thyroxin 75 µg morgens..."></textarea>
+              </div>
+            </div>
+
+            <hr class="form-divider">
+
+            <div class="field full">
+              <label class="field-label" data-i18n="hasAllergies">Sind Allergien oder Medikamentenunverträglichkeiten bekannt?</label>
+              <div class="pill-group">
+                <label class="pill-option">
+                  <input type="radio" name="hasAllergies" value="Nein" checked onchange="toggleBox('allergy-box', false)">
+                  <span class="pill-box" data-i18n="no">Nein</span>
+                </label>
+                <label class="pill-option">
+                  <input type="radio" name="hasAllergies" value="Ja" onchange="toggleBox('allergy-box', true)">
+                  <span class="pill-box" data-i18n="yesSpecify">Ja, bitte angeben</span>
+                </label>
+              </div>
+              <div class="conditional-box" id="allergy-box">
+                <label class="field-label" for="allergies" data-i18n="allergiesLabel">Gegen welche Stoffe? (z. B. Penicillin, Latex, Pflaster, Kontrastmittel)</label>
+                <textarea id="allergies" name="allergies" placeholder="Bitte Allergien eintragen..."></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 4: DATENSCHUTZ & DIGITALE UNTERSCHRIFT -->
+          <div class="form-step" data-step="4">
+            <h3 class="step-heading" data-i18n="s4Heading">4. Prüfung, Einwilligung & Digitale Unterschrift</h3>
+            <p class="step-sub" data-i18n="s4Sub">Bitte prüfen Sie Ihre Kerndaten und bestätigen Sie die Aufnahme mit Ihrer Unterschrift.</p>
+
+            <!-- Live Summary -->
+            <div class="summary-grid" id="summary-preview">
+              <div class="summary-item">
+                <strong data-i18n="sumPatient">Patientin / Patient</strong>
+                <span id="sum-name">–</span>
+              </div>
+              <div class="summary-item">
+                <strong data-i18n="sumDob">Geburtsdatum & Versicherung</strong>
+                <span id="sum-dob-ins">–</span>
+              </div>
+              <div class="summary-item">
+                <strong data-i18n="sumReason">Besuchsgrund</strong>
+                <span id="sum-reason">–</span>
+              </div>
+              <div class="summary-item">
+                <strong data-i18n="sumMedical">Besondere Hinweise (Vorerkr. / Allergien)</strong>
+                <span id="sum-medical">–</span>
+              </div>
+            </div>
+
+            <!-- Legal Consent 1 -->
+            <div class="legal-card">
+              <div class="legal-card-header">
+                <span class="legal-card-title" data-i18n="dsgvoTitle">Datenschutzinformation & Behandlungsvertrag (DSGVO)</span>
+              </div>
+              <div class="legal-scroll" data-i18n="dsgvoBody">
+                Die Schön Klinik MVZ Rendsburg verarbeitet Ihre angegebenen Gesundheits- und Stammdaten ausschließlich zum Zweck der medizinischen Behandlung, Dokumentation und Abrechnung gemäß Art. 6 Abs. 1 lit. b, c sowie Art. 9 Abs. 2 lit. h DSGVO. Ihre Daten unterliegen der ärztlichen Schweigepflicht und werden verschlüsselt übertragen. Sie haben jederzeit das Recht auf Auskunft, Berichtigung und Löschung im Rahmen der gesetzlichen Aufbewahrungsfristen.
+              </div>
+              <label class="checkbox-row">
+                <input type="checkbox" id="consent-dsgvo" required>
+                <span data-i18n="dsgvoCheck">Ich habe die Datenschutzhinweise zur Kenntnis genommen und bin mit der Verarbeitung meiner Daten zur Behandlung einverstanden. <span class="req">*</span></span>
+              </label>
+            </div>
+
+            <!-- Legal Consent 2 -->
+            <div class="legal-card">
+              <div class="legal-card-header">
+                <span class="legal-card-title" data-i18n="truthTitle">Richtigkeit der Angaben</span>
+              </div>
+              <label class="checkbox-row">
+                <input type="checkbox" id="consent-truth" required>
+                <span data-i18n="truthCheck">Ich versichere, alle medizinischen Angaben nach bestem Wissen und Gewissen vollständig gemacht zu haben. <span class="req">*</span></span>
+              </label>
+            </div>
+
+            <!-- Digital Signature Canvas -->
+            <div class="field full" style="margin-top: 22px;">
+              <label class="field-label">
+                <span data-i18n="sigTitle">Digitale Unterschrift</span> <span class="req">*</span>
+              </label>
+              <div class="signature-wrapper">
+                <div class="signature-toolbar">
+                  <span class="signature-hint">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/></svg>
+                    <span data-i18n="sigInstruction">Bitte unterschreiben Sie hier mit dem Finger (Touchscreen) oder der Maus:</span>
+                  </span>
+                  <button type="button" class="btn-clear-sig" onclick="clearSignature()" data-i18n="sigClear">Unterschrift löschen</button>
+                </div>
+                <canvas id="signature-pad"></canvas>
+                <div class="signature-meta">
+                  <span id="sig-location">Ort: Rendsburg (Online-Check-in)</span>
+                  <span id="sig-timestamp">Datum: –</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- WIZARD FOOTER -->
+        <div class="wizard-footer" id="wizard-footer">
+          <button type="button" class="btn btn-outline" id="btn-prev" onclick="changeStep(-1)" style="visibility: hidden;" data-i18n="btnPrev">← Zurück</button>
+          <button type="button" class="btn btn-primary" id="btn-next" onclick="changeStep(1)" data-i18n="btnNext">Weiter →</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit" style="display: none; background: var(--green);" data-i18n="btnSubmit">✓ Verbindlich absenden & unterschreiben</button>
+        </div>
+      </form>
+
+      <!-- RECEIPT / CONFIRMATION VIEW -->
+      <div class="receipt-box" id="receipt-box">
+        <div class="success-badge">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2 style="margin: 0; color: var(--navy); font-size: 26px;" data-i18n="recTitle">Vielen Dank! Ihre Aufnahme ist abgeschlossen.</h2>
+        <p style="color: var(--muted); max-width: 540px; margin: 10px auto;" data-i18n="recSub">Ihr digitaler Anamnesebogen wurde inklusive Ihrer rechtsgültigen elektronischen Signatur für Ihren Termin vorbereitet.</p>
+        
+        <div class="checkin-code" id="receipt-code">SK-RD-8492</div>
+        <p style="font-size: 13px; color: var(--muted); margin-top: 0;" data-i18n="recCodeHint">Bitte nennen oder zeigen Sie diesen Check-in-Code an der Anmeldung.</p>
+
+        <div style="max-width: 640px; margin: 24px auto; text-align: left; background: var(--soft); border: 1px solid var(--line); border-radius: 14px; padding: 20px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 12px;">
+            <div>
+              <strong style="font-size: 12px; color: var(--muted); display: block;">PATIENTIN / PATIENT</strong>
+              <span id="rec-patient-name" style="font-weight: 800; color: var(--navy); font-size: 16px;"></span>
+            </div>
+            <div style="text-align: right;">
+              <strong style="font-size: 12px; color: var(--muted); display: block;">ZEITSTEMPEL SIGNATUR</strong>
+              <span id="rec-sign-time" style="font-weight: 600; font-size: 13px;"></span>
+            </div>
+          </div>
+          <div>
+            <strong style="font-size: 12px; color: var(--muted); display: block; margin-bottom: 6px;">GELEISTETE DIGITALE UNTERSCHRIFT</strong>
+            <img id="rec-sig-img" alt="Digitale Unterschrift" style="max-height: 90px; background: #fff; border: 1px solid var(--line); border-radius: 8px; padding: 6px;">
+          </div>
+        </div>
+
+        <div class="cta-row no-print" style="justify-content: center;">
+          <button type="button" class="btn btn-primary" onclick="window.print()" data-i18n="btnPrint">🖨️ Beleg als PDF speichern / drucken</button>
+          <button type="button" class="btn btn-outline" onclick="resetDemo()" data-i18n="btnNew">Neuen Bogen ausfüllen</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRAXIS INFO SECTION -->
+    <section class="info-section no-print" id="praxis">
+      <div class="info-grid">
+        <div>
+          <h3 style="margin: 0 0 12px; color: var(--navy); font-size: 20px;" data-i18n="practiceTitle">Praxis & Kontakt</h3>
+          <p style="margin: 0 0 10px; font-size: 15px;">
+            <strong>Schön Klinik MVZ Rendsburg – Zweigpraxis Kaiserstraße</strong><br>
+            Fachbereich Gynäkologie und Geburtshilfe<br>
+            Kaiserstraße 24, 24768 Rendsburg
+          </p>
+          <p style="margin: 0 0 8px; font-size: 15px;">
+            <strong data-i18n="telText">Telefon:</strong> <a href="tel:+49433155544" style="color: var(--navy); font-weight: 700;">+49 4331 55544</a><br>
+            <strong data-i18n="openText">Offene Sprechstunde:</strong> Mo–Fr 11:00–12:00 Uhr
+          </p>
+          <div class="emergency-banner" data-i18n="noticeText">
+            <strong>Wichtiger Hinweis:</strong> Bitte melden Sie keine akuten medizinischen Notfälle über dieses Online-Formular. Wenden Sie sich in dringenden Fällen bitte direkt telefonisch an die Praxis oder den Notruf 112.
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin: 0 0 12px; color: var(--navy); font-size: 20px;" data-i18n="hoursTitle">Sprechzeiten</h3>
+          <table class="hours-table">
+            <tbody>
+              <tr><td data-i18n="monday">Montag</td><td>08:00–12:00, 15:00–18:00</td></tr>
+              <tr><td data-i18n="tuesday">Dienstag</td><td>08:00–12:00, 15:00–18:00</td></tr>
+              <tr><td data-i18n="wednesday">Mittwoch</td><td data-i18n="specialHours">Spezialsprechstunde / Termin</td></tr>
+              <tr><td data-i18n="thursday">Donnerstag</td><td>08:00–12:00, 15:00–18:00</td></tr>
+              <tr><td data-i18n="friday">Freitag</td><td>08:00–12:00</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © 2026 Schön Klinik MVZ Rendsburg · <span data-i18n="footerNote">Digitale Patientinnenaufnahme · Datenschutz & Impressum</span>
+    </div>
+  </footer>
+
+  <script>
+    // --- MULTI-LANGUAGE DICTIONARY ---
+    const i18n = {
+      de: {
+        languageLabel: "Sprache",
+        eyebrow: "Digitaler Check-in · Zweigpraxis Kaiserstraße",
+        title: "Digitale Patientinnenaufnahme & Anamnese",
+        subtitle: "Füllen Sie Ihren Anamnesebogen bequem vorab aus und unterschreiben Sie direkt digital – für kürzere Wartezeiten und mehr Zeit für Ihr ärztliches Gespräch.",
+        startBtn: "Jetzt Aufnahme starten",
+        infoBtn: "Sprechzeiten & Kontakt",
+        heroCardTitle: "Ihre Vorteile im Überblick",
+        heroCardOne: "Kein Klemmbrett im Wartezimmer nötig",
+        heroCardTwo: "Strukturierte gynäkologische Anamnese in 5 Sprachen",
+        heroCardThree: "DSGVO-konforme Einwilligung & digitale Unterschrift",
+        heroCardFour: "Sofortiger Check-in-Code & PDF-Beleg für Ihre Unterlagen",
+        wizardTitle: "Digitaler Aufnahmebogen",
+        autoSaveBadge: "DSGVO-geschützt · Zwischenspeicherung aktiv",
+        step1Label: "Stammdaten & Versicherung",
+        step2Label: "Gynäkologische Anamnese",
+        step3Label: "Vorerkrankungen & Medikamente",
+        step4Label: "Datenschutz & Unterschrift",
+        s1Heading: "1. Persönliche Daten & Versicherung",
+        s1Sub: "Bitte geben Sie Ihre aktuellen Kontaktdaten an. Pflichtfelder sind mit * gekennzeichnet.",
+        salutation: "Anrede",
+        salutationMs: "Frau",
+        salutationDiv: "Divers / Keine Angabe",
+        salutationMr: "Herr",
+        firstName: "Vorname",
+        lastName: "Nachname",
+        birthDate: "Geburtsdatum",
+        phone: "Mobil- / Telefonnummer",
+        email: "E-Mail-Adresse (für Terminbestätigung)",
+        address: "Straße, Hausnummer, PLZ, Ort",
+        insuranceType: "Versicherungsart",
+        insGKV: "Gesetzlich (GKV)",
+        insPKV: "Privat (PKV)",
+        insSelf: "Selbstzahler",
+        insuranceName: "Krankenkasse / Versicherung",
+        s2Heading: "2. Anlass des Besuchs & Gynäkologische Angaben",
+        s2Sub: "Diese Informationen helfen dem ärztlichen Team bei der gezielten Vorbereitung Ihrer Untersuchung.",
+        visitReason: "Grund Ihres heutigen Besuchs (Mehrfachauswahl möglich)",
+        rCheckup: "Krebsvorsorge / Routine",
+        rAcute: "Akute Beschwerden",
+        rPreg: "Schwangerschaft / Vorsorge",
+        rContra: "Verhütungsberatung",
+        rFertility: "Kinderwunsch",
+        rMeno: "Wechseljahresbeschwerden",
+        reasonDetails: "Nähere Beschreibung Ihrer Beschwerden oder Fragen",
+        lastPeriod: "Erster Tag der letzten Regelblutung",
+        cycleType: "Zyklusverlauf",
+        cReg: "Regelmäßig",
+        cIrreg: "Unregelmäßig",
+        cNone: "Keine Blutung / Menopause",
+        pregnancy: "Besteht aktuell eine Schwangerschaft?",
+        yes: "Ja",
+        no: "Nein",
+        unsure: "Unsicher",
+        contraception: "Aktuelle Verhütungsmethode (falls zutreffend)",
+        s3Heading: "3. Vorerkrankungen, Medikamente & Allergien",
+        s3Sub: "Wichtige medizinische Hintergrundinformationen zu Ihrer Sicherheit.",
+        hasConditions: "Bestehen chronische Vorerkrankungen oder gab es frühere Operationen?",
+        yesSpecify: "Ja, bitte angeben",
+        conditionsLabel: "Welche Vorerkrankungen / Operationen?",
+        hasMeds: "Nehmen Sie regelmäßig Medikamente ein?",
+        medsLabel: "Präparat und Dosierung (falls bekannt)",
+        hasAllergies: "Sind Allergien oder Medikamentenunverträglichkeiten bekannt?",
+        allergiesLabel: "Gegen welche Stoffe? (z. B. Penicillin, Latex, Pflaster)",
+        s4Heading: "4. Prüfung, Einwilligung & Digitale Unterschrift",
+        s4Sub: "Bitte prüfen Sie Ihre Kerndaten und bestätigen Sie die Aufnahme mit Ihrer Unterschrift.",
+        sumPatient: "Patientin / Patient",
+        sumDob: "Geburtsdatum & Versicherung",
+        sumReason: "Besuchsgrund",
+        sumMedical: "Besondere Hinweise",
+        dsgvoTitle: "Datenschutzinformation & Behandlungsvertrag (DSGVO)",
+        dsgvoCheck: "Ich habe die Datenschutzhinweise zur Kenntnis genommen und bin mit der Verarbeitung meiner Daten zur Behandlung einverstanden.",
+        truthTitle: "Richtigkeit der Angaben",
+        truthCheck: "Ich versichere, alle medizinischen Angaben nach bestem Wissen und Gewissen vollständig gemacht zu haben.",
+        sigTitle: "Digitale Unterschrift",
+        sigInstruction: "Bitte unterschreiben Sie hier mit dem Finger (Touchscreen) oder der Maus:",
+        sigClear: "Unterschrift löschen",
+        btnPrev: "← Zurück",
+        btnNext: "Weiter →",
+        btnSubmit: "✓ Verbindlich absenden & unterschreiben",
+        recTitle: "Vielen Dank! Ihre Aufnahme ist abgeschlossen.",
+        recSub: "Ihr digitaler Anamnesebogen wurde inklusive Ihrer elektronischen Signatur für Ihren Termin vorbereitet.",
+        recCodeHint: "Bitte nennen oder zeigen Sie diesen Check-in-Code an der Anmeldung.",
+        btnPrint: "🖨️ Beleg als PDF speichern / drucken",
+        btnNew: "Neuen Bogen ausfüllen",
+        practiceTitle: "Praxis & Kontakt",
+        hoursTitle: "Sprechzeiten",
+        telText: "Telefon:",
+        openText: "Offene Sprechstunde:",
+        monday: "Montag",
+        tuesday: "Dienstag",
+        wednesday: "Mittwoch",
+        thursday: "Donnerstag",
+        friday: "Freitag",
+        specialHours: "Spezialsprechstunde / Termin"
+      },
+      en: {
+        languageLabel: "Language",
+        eyebrow: "Digital Check-in · Kaiserstraße Branch",
+        title: "Digital Patient Registration & Medical History",
+        subtitle: "Complete your medical history form conveniently in advance and sign digitally – for shorter waiting times and more time with your doctor.",
+        startBtn: "Start registration now",
+        infoBtn: "Hours & Contact",
+        heroCardTitle: "Your Benefits at a Glance",
+        heroCardOne: "No clipboard needed in the waiting room",
+        heroCardTwo: "Structured gynecological history in 5 languages",
+        heroCardThree: "GDPR-compliant consent & digital signature",
+        heroCardFour: "Instant check-in code & PDF receipt for your records",
+        wizardTitle: "Digital Intake Form",
+        autoSaveBadge: "GDPR-protected · Auto-save active",
+        step1Label: "Personal Data & Insurance",
+        step2Label: "Gynecological History",
+        step3Label: "Conditions & Medications",
+        step4Label: "Privacy & Signature",
+        s1Heading: "1. Personal Details & Insurance",
+        s1Sub: "Please enter your current contact details. Required fields are marked with *.",
+        salutation: "Salutation",
+        salutationMs: "Ms. / Mrs.",
+        salutationDiv: "Diverse / Prefer not to say",
+        salutationMr: "Mr.",
+        firstName: "First name",
+        lastName: "Last name",
+        birthDate: "Date of birth",
+        phone: "Mobile / Phone number",
+        email: "Email address (for appointment confirmation)",
+        address: "Street, House No., ZIP, City",
+        insuranceType: "Insurance Type",
+        insGKV: "Statutory (GKV)",
+        insPKV: "Private (PKV)",
+        insSelf: "Self-pay",
+        insuranceName: "Health Insurance Provider",
+        s2Heading: "2. Reason for Visit & Gynecological Details",
+        s2Sub: "This information helps our medical team prepare specifically for your examination.",
+        visitReason: "Reason for today's visit (multiple selections possible)",
+        rCheckup: "Cancer screening / Routine",
+        rAcute: "Acute symptoms",
+        rPreg: "Pregnancy / Prenatal care",
+        rContra: "Contraception counseling",
+        rFertility: "Fertility / Family planning",
+        rMeno: "Menopause symptoms",
+        reasonDetails: "Detailed description of symptoms or questions",
+        lastPeriod: "First day of last menstrual period",
+        cycleType: "Menstrual cycle",
+        cReg: "Regular",
+        cIrreg: "Irregular",
+        cNone: "No bleeding / Menopause",
+        pregnancy: "Are you currently pregnant?",
+        yes: "Yes",
+        no: "No",
+        unsure: "Unsure",
+        contraception: "Current contraception method (if applicable)",
+        s3Heading: "3. Medical History, Medications & Allergies",
+        s3Sub: "Important medical background information for your safety.",
+        hasConditions: "Do you have any chronic conditions or previous surgeries?",
+        yesSpecify: "Yes, please specify",
+        conditionsLabel: "Which conditions / surgeries?",
+        hasMeds: "Do you take any medications regularly?",
+        medsLabel: "Medication name and dosage (if known)",
+        hasAllergies: "Do you have any known allergies or intolerances?",
+        allergiesLabel: "To which substances? (e.g., Penicillin, Latex, Plasters)",
+        s4Heading: "4. Review, Consent & Digital Signature",
+        s4Sub: "Please review your summary and confirm registration with your signature.",
+        sumPatient: "Patient",
+        sumDob: "Date of Birth & Insurance",
+        sumReason: "Reason for Visit",
+        sumMedical: "Medical Notes",
+        dsgvoTitle: "Data Privacy Information & Treatment Agreement (GDPR)",
+        dsgvoCheck: "I acknowledge the privacy notice and consent to the processing of my data for medical treatment.",
+        truthTitle: "Accuracy of Information",
+        truthCheck: "I confirm that all medical information provided is complete and accurate to the best of my knowledge.",
+        sigTitle: "Digital Signature",
+        sigInstruction: "Please sign here using your finger (touchscreen) or mouse:",
+        sigClear: "Clear signature",
+        btnPrev: "← Back",
+        btnNext: "Next →",
+        btnSubmit: "✓ Submit & Sign Bindingly",
+        recTitle: "Thank you! Your registration is complete.",
+        recSub: "Your digital medical history form including your electronic signature has been prepared for your appointment.",
+        recCodeHint: "Please state or show this check-in code at the reception desk.",
+        btnPrint: "🖨️ Save as PDF / Print Receipt",
+        btnNew: "Fill out new form",
+        practiceTitle: "Practice & Contact",
+        hoursTitle: "Opening Hours",
+        telText: "Phone:",
+        openText: "Open consultation:",
+        monday: "Monday",
+        tuesday: "Tuesday",
+        wednesday: "Wednesday",
+        thursday: "Thursday",
+        friday: "Friday",
+        specialHours: "Special consultation / Appointment"
+      }
+    };
+
+    const flagSvgs = {
+      de: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#000"/><rect y="6.67" width="30" height="6.66" fill="#dd0000"/><rect y="13.33" width="30" height="6.67" fill="#ffce00"/></svg>`,
+      en: `<svg viewBox="0 0 60 30"><rect width="60" height="30" fill="#012169"/><path d="M0 0L60 30M60 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0L60 30M60 0L0 30" stroke="#c8102e" stroke-width="2.5"/><path d="M25 0h10v30H25zM0 10h60v10H0z" fill="#fff"/><path d="M27 0h6v30h-6zM0 12h60v6H0z" fill="#c8102e"/></svg>`,
+      ru: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.66" fill="#0039a6"/><rect y="13.33" width="30" height="6.67" fill="#d52b1e"/></svg>`,
+      uk: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#0057b7"/><rect y="10" width="30" height="10" fill="#ffd700"/></svg>`,
+      tr: `<svg viewBox="0 0 30 20"><rect width="30" height="20" fill="#e30a17"/><circle cx="11" cy="10" r="6" fill="#fff"/><circle cx="13" cy="10" r="4.8" fill="#e30a17"/><path d="M19.2 6.8l1 2.2 2.4.2-1.8 1.5.6 2.3-2.2-1.2-2.1 1.2.5-2.3-1.8-1.5 2.4-.2z" fill="#fff"/></svg>`
+    };
+
+    // --- WIZARD STATE & NAVIGATION ---
+    let currentStep = 1;
+    const totalSteps = 4;
+
+    function updateWizardUI() {
+      // Update steps visibility
+      document.querySelectorAll('.form-step').forEach(el => {
+        el.classList.toggle('active', Number(el.dataset.step) === currentStep);
+      });
+
+      // Update stepper track
+      document.querySelectorAll('.step-item').forEach(el => {
+        const s = Number(el.dataset.step);
+        el.classList.remove('active', 'completed');
+        if (s === currentStep) el.classList.add('active');
+        else if (s < currentStep) el.classList.add('completed');
+      });
+
+      // Update buttons
+      document.getElementById('btn-prev').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+      document.getElementById('btn-next').style.display = currentStep === totalSteps ? 'none' : 'inline-flex';
+      document.getElementById('btn-submit').style.display = currentStep === totalSteps ? 'inline-flex' : 'none';
+
+      // If Step 4, populate summary & resize canvas
+      if (currentStep === 4) {
+        populateSummary();
+        resizeCanvas();
+        updateTimestamp();
+      }
+    }
+
+    function validateStep(step) {
+      const stepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+      const requiredInputs = stepEl.querySelectorAll('input[required], select[required], textarea[required]');
+      for (let input of requiredInputs) {
+        if (!input.checkValidity()) {
+          input.reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function changeStep(delta) {
+      if (delta > 0 && !validateStep(currentStep)) return;
+      currentStep = Math.min(Math.max(1, currentStep + delta), totalSteps);
+      updateWizardUI();
+      document.getElementById('wizard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function goToStep(targetStep) {
+      if (targetStep > currentStep && !validateStep(currentStep)) return;
+      currentStep = targetStep;
+      updateWizardUI();
+    }
+
+    function toggleBox(boxId, show) {
+      document.getElementById(boxId).classList.toggle('visible', show);
+    }
+
+    // --- SUMMARY GENERATOR ---
+    function populateSummary() {
+      const sal = document.getElementById('salutation').value;
+      const fn = document.getElementById('firstName').value.trim();
+      const ln = document.getElementById('lastName').value.trim();
+      document.getElementById('sum-name').textContent = (fn || ln) ? `${sal} ${fn} ${ln}` : '–';
+
+      const dob = document.getElementById('birthDate').value;
+      const insType = document.querySelector('input[name="insuranceType"]:checked')?.value || '';
+      const insName = document.getElementById('insuranceName').value.trim();
+      const dobFormatted = dob ? new Date(dob).toLocaleDateString('de-DE') : '–';
+      document.getElementById('sum-dob-ins').textContent = `${dobFormatted} · ${insType}${insName ? ' (' + insName + ')' : ''}`;
+
+      const reasons = Array.from(document.querySelectorAll('input[name="visitReason"]:checked')).map(cb => cb.value);
+      document.getElementById('sum-reason').textContent = reasons.length ? reasons.join(', ') : 'Keine Auswahl';
+
+      const hasCond = document.querySelector('input[name="hasConditions"]:checked')?.value === 'Ja';
+      const hasMeds = document.querySelector('input[name="hasMeds"]:checked')?.value === 'Ja';
+      const hasAllergy = document.querySelector('input[name="hasAllergies"]:checked')?.value === 'Ja';
+      const flags = [];
+      if (hasCond) flags.push('Vorerkrankungen');
+      if (hasMeds) flags.push('Dauermedikation');
+      if (hasAllergy) flags.push('Allergien');
+      document.getElementById('sum-medical').textContent = flags.length ? flags.join(', ') : 'Keine angegeben';
+    }
+
+    // --- DIGITAL SIGNATURE PAD ---
+    const canvas = document.getElementById('signature-pad');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+    let hasSigned = false;
+
+    function resizeCanvas() {
+      const ratio = Math.max(window.devicePixelRatio || 1, 1);
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0) return;
+      canvas.width = rect.width * ratio;
+      canvas.height = rect.height * ratio;
+      ctx.scale(ratio, ratio);
+      ctx.lineWidth = 2.4;
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
+      ctx.strokeStyle = '#0f2850';
+      hasSigned = false;
+    }
+
+    function getCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    function startDraw(e) {
+      isDrawing = true;
+      hasSigned = true;
+      const { x, y } = getCoords(e);
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      if (e.touches) e.preventDefault();
+    }
+
+    function draw(e) {
+      if (!isDrawing) return;
+      const { x, y } = getCoords(e);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      if (e.touches) e.preventDefault();
+    }
+
+    function stopDraw() {
+      isDrawing = false;
+    }
+
+    canvas.addEventListener('mousedown', startDraw);
+    canvas.addEventListener('mousemove', draw);
+    window.addEventListener('mouseup', stopDraw);
+
+    canvas.addEventListener('touchstart', startDraw, { passive: false });
+    canvas.addEventListener('touchmove', draw, { passive: false });
+    canvas.addEventListener('touchend', stopDraw);
+
+    function clearSignature() {
+      const rect = canvas.getBoundingClientRect();
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      hasSigned = false;
+    }
+
+    function updateTimestamp() {
+      const now = new Date();
+      document.getElementById('sig-timestamp').textContent =
+        `Datum & Uhrzeit: ${now.toLocaleDateString('de-DE')} um ${now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} Uhr`;
+    }
+
+    // --- FORM SUBMISSION ---
+    document.getElementById('intake-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (!validateStep(4)) return;
+
+      if (!hasSigned) {
+        alert('Bitte unterschreiben Sie den Anamnesebogen im Unterschriftsfeld, bevor Sie ihn absenden.');
+        return;
+      }
+
+      // Generate check-in code & populate receipt
+      const randomNum = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('receipt-code').textContent = `SK-RD-${randomNum}`;
+
+      const fn = document.getElementById('firstName').value.trim();
+      const ln = document.getElementById('lastName').value.trim();
+      document.getElementById('rec-patient-name').textContent = `${fn} ${ln}`;
+
+      const now = new Date();
+      document.getElementById('rec-sign-time').textContent =
+        `${now.toLocaleDateString('de-DE')} · ${now.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' })} Uhr`;
+
+      document.getElementById('rec-sig-img').src = canvas.toDataURL('image/png');
+
+      // Switch to receipt view
+      document.getElementById('intake-form').style.display = 'none';
+      document.querySelector('.stepper-header').style.display = 'none';
+      document.getElementById('receipt-box').classList.add('visible');
+      document.getElementById('wizard').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    function resetDemo() {
+      document.getElementById('intake-form').reset();
+      clearSignature();
+      toggleBox('cond-box', false);
+      toggleBox('meds-box', false);
+      toggleBox('allergy-box', false);
+      currentStep = 1;
+      updateWizardUI();
+      document.getElementById('receipt-box').classList.remove('visible');
+      document.querySelector('.stepper-header').style.display = 'block';
+      document.getElementById('intake-form').style.display = 'block';
+    }
+
+    // --- LANGUAGE SWITCHER ---
+    const languageSelect = document.getElementById('language');
+    const flagDisplay = document.getElementById('flag-display');
+
+    function applyLanguage(lang) {
+      const dict = i18n[lang] || i18n.de;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key]) el.textContent = dict[key];
+      });
+      flagDisplay.innerHTML = flagSvgs[lang] || flagSvgs.de;
+    }
+
+    languageSelect.addEventListener('change', (e) => applyLanguage(e.target.value));
+    applyLanguage('de');
+    window.addEventListener('resize', () => {
+      if (currentStep === 4 && !hasSigned) resizeCanvas();
+    });
+  </script>
+</body>
+</html>
